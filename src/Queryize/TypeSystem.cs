@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Queryable
+namespace Queryize
 {
     internal static class TypeSystem
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Queryable
+namespace Queryize
 {
     class Program
     {
