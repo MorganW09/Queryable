@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Queryize
 {
-    internal class QueryTranslator : ExpressionVisitor
+    internal class QueryTranslator : Queryize.ExpressionVisitor
     {
         StringBuilder sb;
 

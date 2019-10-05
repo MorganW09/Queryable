@@ -11,7 +11,31 @@ namespace Queryize
     {
         Enumerator enumerator;
 
-        class Enumerator : IEnumerable<T>, IEnumerator, IDisposable
+        internal ObjectReader(DbDataReader reader)
+        {
+            enumerator = new Enumerator(reader);
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            var e = enumerator;
+
+            //not a thread safe check
+            if (e == null)
+            {
+                throw new InvalidOperationException("Cannot enumerator more than once");
+            }
+
+            enumerator = null;
+            return e;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        class Enumerator : IEnumerator<T>, IDisposable 
         {
             DbDataReader reader;
             FieldInfo[] fields;
@@ -20,8 +44,8 @@ namespace Queryize
 
             internal Enumerator(DbDataReader reader)
             {
-                this.reader = reader;
-                this.fields = typeof(T).GetFields();
+                reader = reader;
+                fields = typeof(T).GetFields();
             }
 
             public T Current => current;
@@ -30,33 +54,33 @@ namespace Queryize
 
             public bool MoveNext()
             {
-                if (this.reader.Read())
+                if (reader.Read())
                 {
-                    if (this.fieldLookup == null)
+                    if (fieldLookup == null)
                     {
-                        this.InitFieldLookup();
+                        InitFieldLookup();
                     }
 
                     T instance = new T();
 
-                    for (int i = 0, n = this.fields.Length; i < n; i++)
+                    for (int i = 0, n = fields.Length; i < n; i++)
                     {
-                        int index = this.fieldLookup[i];
+                        int index = fieldLookup[i];
                         if (index >= 0)
                         {
-                            FieldInfo fi = this.fields[i];
-                            if (this.reader.IsDBNull(index))
+                            FieldInfo fi = fields[i];
+                            if (reader.IsDBNull(index))
                             {
                                 fi.SetValue(instance, null);
                             }
                             else
                             {
-                                fi.SetValue(instance, this.reader.GetValue(index));
+                                fi.SetValue(instance, reader.GetValue(index));
                             }
                         }
                     }
 
-                    this.current = instance;
+                    current = instance;
                     return true;
                 }
                 return false;
@@ -92,7 +116,7 @@ namespace Queryize
                     }
                     else
                     {
-                        .fieldLookup[i] = -1;
+                        fieldLookup[i] = -1;
                     }
                 }
             }
