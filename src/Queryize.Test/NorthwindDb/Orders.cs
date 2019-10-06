@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Queryize.NorthwindDb
+namespace Queryize.Test.NorthwindDb
 {
     public class Orders
     {

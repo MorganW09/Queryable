@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Queryize
+namespace Queryize.Core
 {
     public class Query<T> : IQueryable<T>, IQueryable, IEnumerable<T>, IEnumerable, IOrderedQueryable<T>, IOrderedQueryable
     {
@@ -21,6 +21,11 @@ namespace Queryize
             }
 
             this.provider = provider;
+            this.expression = Expression.Constant(this);
+        }
+
+        internal Query()
+        {
             this.expression = Expression.Constant(this);
         }
 

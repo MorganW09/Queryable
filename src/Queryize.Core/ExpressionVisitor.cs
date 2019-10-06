@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Queryize
+namespace Queryize.Core
 {
     public abstract class ExpressionVisitor
     {

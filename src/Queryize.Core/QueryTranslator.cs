@@ -4,22 +4,22 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Queryize
+namespace Queryize.Core
 {
-    internal class QueryTranslator : Queryize.ExpressionVisitor
+    internal class QueryTranslator : Core.ExpressionVisitor
     {
         StringBuilder sb;
 
-        internal QueryTranslator()
+        public QueryTranslator()
         {
 
         }
 
         internal string Translate(Expression expression)
         {
-            this.sb = new StringBuilder();
-            this.Visit(expression);
-            return this.sb.ToString();
+            sb = new StringBuilder();
+            Visit(expression);
+            return sb.ToString();
         }
 
         private static Expression StripQuotes(Expression e)
@@ -40,6 +40,8 @@ namespace Queryize
                 this.Visit(m.Arguments[0]);
                 
                 sb.Append(") AS T WHERE");
+
+                var firstArgument = (UnaryExpression)m.Arguments[1];
 
                 LambdaExpression lambda = (LambdaExpression)StripQuotes(m.Arguments[1]);
 
@@ -74,6 +76,7 @@ namespace Queryize
             switch (b.NodeType)
             {
                 case ExpressionType.And:
+                case ExpressionType.AndAlso:
                     sb.Append(" AND ");
                     break;
                 case ExpressionType.Or:

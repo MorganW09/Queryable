@@ -5,7 +5,7 @@ using System.Data.Common;
 using System.Reflection;
 using System.Text;
 
-namespace Queryize
+namespace Queryize.Core
 {
     internal class ObjectReader<T> : IEnumerable<T>, IEnumerable where T : class, new()
     {

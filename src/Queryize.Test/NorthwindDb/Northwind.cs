@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
+using Queryize.Core;
 
-namespace Queryize.NorthwindDb
+namespace Queryize.Test.NorthwindDb
 {
     public class Northwind
     {

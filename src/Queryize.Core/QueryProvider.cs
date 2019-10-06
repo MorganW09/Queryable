@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace Queryize
+namespace Queryize.Core
 {
     public abstract class QueryProvider : IQueryProvider
     {
