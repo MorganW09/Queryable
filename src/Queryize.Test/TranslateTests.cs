@@ -87,5 +87,24 @@ namespace Queryize.Test
 
             translation.Should().Be("SELECT * FROM (SELECT * FROM Customers) AS T WHERE((((City = 'London') AND (Country = 'UK')) AND (ContactName = 'Thomas Hardy')) AND (Phone = '1234567890'))");
         }
+
+        [Fact]
+        public void Test_CanUseLocalVariable()
+        {
+            var translation = string.Empty;
+            string dbConnectionString = @"Server=(localdb)\\mssqllocaldb;Database=Northwind;Trusted_Connection=True;MultipleActiveResultSets=true";
+            using (SqlConnection con = new SqlConnection(dbConnectionString))
+            {
+
+                Northwind db = new Northwind(con);
+
+                var city = "London";
+                var query = db.Customers.Where(c => c.City == city);
+
+                translation = query.ToString();
+            }
+
+            translation.Should().Be("SELECT * FROM (SELECT * FROM Customers) AS T WHERE(City = 'London')");
+        }
     }
 }

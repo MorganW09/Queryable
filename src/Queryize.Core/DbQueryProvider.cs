@@ -36,6 +36,10 @@ namespace Queryize.Core
 
         public override string GetQueryText(Expression expression) => Translate(expression);
 
-        internal string Translate(Expression expression) => new QueryTranslator().Translate(expression);
+        internal string Translate(Expression expression)
+        {
+            expression = Evaluator.PartialEval(expression);
+            return new QueryTranslator().Translate(expression);
+        }
     }
 }

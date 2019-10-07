@@ -15,10 +15,13 @@ namespace Queryize
                 con.Open();
                 var db = new Northwind(con);
 
-                IQueryable<Customers> query =
-                    db.Customers.Where(c => c.City == "London");
+                var city = "London";
 
-                Console.WriteLine($"Query:\n{query.ToString()}");
+                IQueryable<Customers> query =
+                    db.Customers.Where(c => c.City == city);
+
+                Console.WriteLine($"Query: {query.Expression.ToString()}");
+                //Console.WriteLine($"Query:\n{query.ToString()}");
 
                 var list = query.ToList();
 

@@ -69,7 +69,7 @@ namespace Queryize.Core
         protected override Expression VisitBinary(BinaryExpression b)
         {
             sb.Append("(");
-            this.Visit(b.Left);
+            Visit(b.Left);
 
             switch (b.NodeType)
             {
@@ -102,7 +102,7 @@ namespace Queryize.Core
                     throw new NotSupportedException($"The binary operator {b.NodeType} is not supported");
             }
 
-            this.Visit(b.Right);
+            Visit(b.Right);
 
             sb.Append(")");
             return b;
