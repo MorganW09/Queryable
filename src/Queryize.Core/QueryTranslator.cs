@@ -41,8 +41,6 @@ namespace Queryize.Core
                 
                 sb.Append(") AS T WHERE");
 
-                var firstArgument = (UnaryExpression)m.Arguments[1];
-
                 LambdaExpression lambda = (LambdaExpression)StripQuotes(m.Arguments[1]);
 
                 this.Visit(lambda.Body);

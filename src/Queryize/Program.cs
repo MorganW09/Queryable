@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Linq;
+using Queryize.NorthwindDb;
 
 namespace Queryize
 {
@@ -8,18 +9,26 @@ namespace Queryize
     {
         static void Main(string[] args)
         {
-        //    string dbConnectionString = @"Server=(localdb)\\mssqllocaldb;Database=TinRollDb;Trusted_Connection=True;MultipleActiveResultSets=true";
-        //    using (SqlConnection con = new SqlConnection(dbConnectionString))
-        //    {
-        //        var db = new Northwind(con);
+            string dbConnectionString = @"Server=(localdb)\mssqllocaldb;Database=Northwind;Trusted_Connection=True;MultipleActiveResultSets=true";
+            using (SqlConnection con = new SqlConnection(dbConnectionString))
+            {
+                con.Open();
+                var db = new Northwind(con);
 
-        //        IQueryable<Customers> query =
-        //            db.Customers.Where(c => c.City == "London");
+                IQueryable<Customers> query =
+                    db.Customers.Where(c => c.City == "London");
 
-        //        Console.WriteLine($"Query:\n{query.ToString()}");
-        //    }
+                Console.WriteLine($"Query:\n{query.ToString()}");
 
-        //    Console.ReadLine();
+                var list = query.ToList();
+
+                foreach (var item in list)
+                {
+                    Console.WriteLine("Name: {0}", item.ContactName);
+                }
+            }
+
+            Console.ReadLine();
         }
     }
 }

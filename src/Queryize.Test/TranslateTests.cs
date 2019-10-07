@@ -32,23 +32,6 @@ namespace Queryize.Test
 
         }
 
-        //[Fact]
-        //public void Test_CityTranslation_Expression()
-        //{
-        //    ConstantExpression constExp = Expression.Constant(new Query<Customers>(), typeof(Query<Customers>));
-        //    //UnaryExpression unaryExp = Expression.MakeUnary(ExpressionType.Equal, (Expression<Func<Customers, bool>>)((Customers c) => c.City == "London"), typeof(Expression<Func<Customers, bool>>))
-        //    UnaryExpression unaryExp = Expression.MakeUnary(ExpressionType.Quote, (Expression<Func<Customers, bool>>)((Customers c) => c.City == "London"), typeof(Expression<Func<Customers, bool>>));
-        //    //Expression.Lambda<Func<Customers, bool>>()
-        //    //Expression.MakeBinary(ExpressionType.Equal);
-        //    //var expression = new MethodCallExpression();
-        //    var queryCustomer = new Query<Customers>();
-        //    var whereExpression = Expression.Call(typeof(Query<Customers>).GetMethod("Where", new Type[] { typeof(IQueryable<Customers>), typeof(Expression<Func<Customers, bool>>) }));
-
-        //    var translation = new QueryTranslator().Translate(whereExpression);
-
-        //    translation.Should().Be("SELECT * FROM (SELECT * FROM Customers) AS T WHERE(City = 'London')");
-        //}
-
         [Fact]
         public void Test_CityAndCountryTranslation()
         {

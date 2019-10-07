@@ -44,7 +44,7 @@ namespace Queryize.Core
 
             internal Enumerator(DbDataReader reader)
             {
-                reader = reader;
+                this.reader = reader;
                 fields = typeof(T).GetFields();
             }
 
