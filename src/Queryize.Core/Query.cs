@@ -24,11 +24,6 @@ namespace Queryize.Core
             this.expression = Expression.Constant(this);
         }
 
-        internal Query()
-        {
-            this.expression = Expression.Constant(this);
-        }
-
         public Query(QueryProvider provider, Expression expression)
         {
             if (provider == null)

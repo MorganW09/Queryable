@@ -8,13 +8,7 @@ namespace Queryize.Core
 {
     public abstract class ExpressionVisitor
     {
-
-
-        protected ExpressionVisitor()
-        {
-
-
-        }
+        protected ExpressionVisitor() {}
 
         protected virtual Expression Visit(Expression exp)
         {
@@ -224,11 +218,7 @@ namespace Queryize.Core
                 return Expression.Bind(assignment.Member, e);
             }
             return assignment;
-        }
-
-
-
-
+        } 
 
         protected virtual MemberMemberBinding VisitMemberMemberBinding(MemberMemberBinding binding)
         {
@@ -361,10 +351,6 @@ namespace Queryize.Core
             }
             return na;
         }
-
-
-
-
 
         protected virtual Expression VisitInvocation(InvocationExpression iv)
         {
